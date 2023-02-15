@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IonContent } from '@ionic/react';
 import { Carousel } from 'antd';
 import GameCard from '../../../components/ui-library/game-card/GameCard';
+import { useGoBack } from 'store/user';
 
 const Tab1: React.FC = () => {
+  const { goBack, toggleGoBack } = useGoBack();
+
+  useEffect(() => {
+    if(goBack)
+    toggleGoBack();
+  }, []);
   return (
-    <IonContent>
+    <IonContent >
       <div id="herherherher" className=" flex flex-col !rounded-lg">
         <Carousel>
           <div>

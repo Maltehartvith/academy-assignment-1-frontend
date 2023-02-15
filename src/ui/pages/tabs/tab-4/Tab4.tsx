@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './tab-4.module.css';
 import {
   IonButton,
@@ -13,11 +13,28 @@ import {
   IonIcon,
   IonRow,
   IonText,
+  useIonRouter,
+  isPlatform,
 } from '@ionic/react';
-import { arrowBackOutline, arrowForward, chatboxEllipsesOutline, cloudUploadOutline, ellipsisHorizontal } from 'ionicons/icons';
+import { arrowBackOutline, arrowForward, chatboxEllipsesOutline, cloudUploadOutline, ellipsisHorizontal, logOutOutline } from 'ionicons/icons';
 import EditNameExample from 'ui/components/frontpage/edit-name/EditName';
+import { useAuthUserStore, useGoBack } from 'store/user';
+import { supabase } from 'apis/supabaseClient';
 
 const Tab4: React.FC = () => {
+  const router = useIonRouter();
+  const resetAuthUser = useAuthUserStore((state) => state.resetAuthUser);
+  const { goBack, toggleGoBack } = useGoBack();
+
+  useEffect(() => {
+    if (goBack) toggleGoBack();
+  }, []);
+
+  const handleLogOut = async () => {
+    resetAuthUser();
+    await supabase.auth.signOut();
+    router.push('/login');
+  };
   return (
     <IonContent>
       <IonButtons slot="start">
@@ -104,6 +121,17 @@ const Tab4: React.FC = () => {
               </IonCard>
             </IonCol>
           </IonRow>
+
+          {!isPlatform('desktop') && (
+            <IonRow className='justify-center'>
+              <IonCol size="6">
+                <IonButton color="secondary" expand="block" onClick={() => handleLogOut()}>
+                  <IonIcon icon={logOutOutline} size="small" />
+                  &nbsp; Log Out
+                </IonButton>
+              </IonCol>
+            </IonRow>
+          )}
         </IonGrid>
       </IonContent>
     </IonContent>

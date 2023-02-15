@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './tab-2.module.css';
 import { IonContent, IonList, IonSearchbar } from '@ionic/react';
 import GameCard from 'ui/components/ui-library/game-card/GameCard';
+import { useGoBack } from 'store/user';
 
 const Tab2: React.FC = () => {
   const [searchText, setSearchText] = useState('');
+  const { goBack, toggleGoBack } = useGoBack();
+
+  useEffect(() => {
+    if (goBack) toggleGoBack();
+  }, []);
+
   const cardStyle: React.CSSProperties = {
     marginTop: '1.25rem',
   };

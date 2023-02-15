@@ -31,3 +31,14 @@ export const useDarkMode = create<DarkMode>()(
   darkMode: false,
   toggleDarkMode: () => set((state) => ({ darkMode: !state.darkMode }))
 })));
+
+type goBackState = {
+  goBack: boolean;
+  toggleGoBack: () => void;
+}
+export const useGoBack = create<goBackState>()(
+  persist(
+  (set) => ({
+    goBack: false,
+    toggleGoBack: () => set((state) => ({ goBack: !state.goBack })),
+})));
