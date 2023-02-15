@@ -1,8 +1,18 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { IonButtons, IonButton, IonModal, IonHeader, IonContent, IonToolbar, IonTitle, IonPage, IonItem, IonLabel, IonInput } from '@ionic/react';
 import { OverlayEventDetail } from '@ionic/core/components';
+import { useGoBack } from 'store/user';
 
 const Example: React.FC = () => {
+
+  const { goBack, toggleGoBack } = useGoBack();
+
+  useEffect(() => {
+    if(goBack)
+    toggleGoBack();
+  }, []);
+
+  
   const modal = useRef<HTMLIonModalElement>(null);
   const input = useRef<HTMLIonInputElement>(null);
 

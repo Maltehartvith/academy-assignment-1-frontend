@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Route, Redirect, useHistory } from 'react-router';
 import { IonReactRouter } from '@ionic/react-router';
-import { useDarkMode } from '../../store/user';
+import { useDarkMode, useGoBack } from '../../store/user';
 import {
   IonTabBar,
   IonTabButton,
@@ -13,9 +13,11 @@ import {
   IonPage,
   IonToolbar,
   IonButton,
+  IonButtons,
   useIonRouter,
   IonLabel,
   IonToggle,
+  isPlatform,
 } from '@ionic/react';
 import { people, home, dice, person } from 'ionicons/icons';
 import Tab1 from './tabs/tab-1/Tab1';
@@ -26,12 +28,14 @@ import GameComp from '../components/ui-library/game-component/GameComp';
 import { supabase } from 'apis/supabaseClient';
 import { useAuthUserStore } from 'store/user';
 import './home-page.module.css';
+import { arrowBackOutline } from 'ionicons/icons';
 
 const HomePage: React.FC = () => {
   const router = useIonRouter();
   const authUser = useAuthUserStore((state) => state.authUser);
   const resetAuthUser = useAuthUserStore((state) => state.resetAuthUser);
   const { darkMode, toggleDarkMode } = useDarkMode();
+  const { goBack, toggleGoBack } = useGoBack();
   const history = useHistory();
 
   const toggleDarkModeHandler = () => {
@@ -48,20 +52,38 @@ const HomePage: React.FC = () => {
     await supabase.auth.signOut();
     router.push('/login');
   };
+
   return (
     <IonPage id="main-content">
       <IonHeader>
         <IonToolbar>
-          <IonButton onClick={() => history.goBack()} slot="start" className="w-[4rem] py-1">
-            Back
-          </IonButton>
-          <div className="flex items-center justify-end pr-2">
-            <IonToggle checked={darkMode} onIonChange={toggleDarkModeHandler} class="toggle-button"></IonToggle>
-            <IonLabel className="ml-2">{darkMode ? 'Dark' : 'Light'} Mode</IonLabel>
-          </div>
-          <IonButton onClick={handleLogOut} slot="end" className="w-[4rem] py-1">
-            Log ud
-          </IonButton>
+          <IonButtons slot="start">
+            {goBack && (
+              <div className="flex items-center">
+                <IonIcon icon={arrowBackOutline} />
+
+                <IonButton
+                  onClick={() => {
+                    toggleGoBack();
+                    history.goBack();
+                  }}
+                >
+                  Back
+                </IonButton>
+              </div>
+            )}
+          </IonButtons>
+          <IonButtons slot="end" className="flex items-center">
+            <div className="flex items-center justify-end pr-2">
+              <IonToggle checked={darkMode} onIonChange={toggleDarkModeHandler} class="toggle-button"></IonToggle>
+              <IonLabel className="ml-2">{darkMode ? 'Dark' : 'Light'} Mode</IonLabel>
+            </div>
+            {isPlatform('desktop') && (
+              <IonButton onClick={handleLogOut} className="w-[4rem] border-2 border-indigo-500/75">
+                Log ud
+              </IonButton>
+            )}
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
