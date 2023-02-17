@@ -3,6 +3,7 @@ import { IonContent } from '@ionic/react';
 import { Carousel } from 'antd';
 import GameCard from '../../../components/ui-library/game-card/GameCard';
 import { useGoBack } from 'store/user';
+import ArticleComp from 'ui/components/ui-library/article-component/ArticleComp';
 
 const Tab1: React.FC = () => {
   const { goBack, toggleGoBack } = useGoBack();
@@ -25,6 +26,9 @@ const Tab1: React.FC = () => {
             <GameCard title="tester shjester" gameName={'shjester'} backgroundImg="Preda.jpg" />
           </div>
         </Carousel>
+      </div>
+      <div>
+        <ArticleComp />
       </div>
     </IonContent>
   );
