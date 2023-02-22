@@ -10,6 +10,11 @@ export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
 export type ArrayElement<A> = A extends readonly (infer T)[] ? T : never;
 
 // Typed Usage Example
-type Profiles = Awaited<ReturnType<typeof fetchProfile>>['data'];
-type Profile = ArrayElement<Profiles>;
-const fetchProfile = async () => await supabase.from('profile').select('*');
+// type Profiles = Awaited<ReturnType<typeof fetchProfile>>['data'];
+export type Articles = Awaited<ReturnType<typeof fetchArticles>>['data'];
+
+// type Article = ArrayElement<Articles>;
+// type Profile = ArrayElement<Profiles>;
+
+export const fetchArticles = async () => await supabase.from('article').select('*');
+// const fetchProfile = async () => await supabase.from('profile').select('*');

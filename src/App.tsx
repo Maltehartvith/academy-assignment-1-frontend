@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import { IonApp, IonLoading, IonRouterOutlet, setupIonicReact } from '@ionic/react';
+import { Route, Switch } from 'react-router-dom';
+import { IonApp, IonLoading, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { supabase } from 'apis/supabaseClient';
 import { Session } from '@supabase/supabase-js';

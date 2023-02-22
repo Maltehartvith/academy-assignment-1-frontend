@@ -24,21 +24,21 @@ export const useAuthUserStore = create<AuthUserStore>()(
 type DarkMode = {
   darkMode: boolean;
   toggleDarkMode: () => void;
-}
+};
 export const useDarkMode = create<DarkMode>()(
-  persist(
-  (set) => ({
-  darkMode: false,
-  toggleDarkMode: () => set((state) => ({ darkMode: !state.darkMode }))
-})));
+  persist((set) => ({
+    darkMode: false,
+    toggleDarkMode: () => set((state) => ({ darkMode: !state.darkMode })),
+  }))
+);
 
 type goBackState = {
   goBack: boolean;
   toggleGoBack: () => void;
-}
+};
 export const useGoBack = create<goBackState>()(
-  persist(
-  (set) => ({
+  persist((set) => ({
     goBack: false,
     toggleGoBack: () => set((state) => ({ goBack: !state.goBack })),
-})));
+  }))
+);

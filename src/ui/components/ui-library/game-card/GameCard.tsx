@@ -3,7 +3,6 @@ import { IonRouterLink } from '@ionic/react';
 import { useDarkMode, useGoBack } from 'store/user';
 import './game-card.module.css';
 
-
 type CardProps = {
   title: string;
   gameName: string;
@@ -43,11 +42,11 @@ const GameCard: React.FC<CardProps> = ({ title, gameName, backgroundImg, color }
 
   return (
     <IonRouterLink routerLink={'/game/' + gameName} onClick={() => toggleGoBack()}>
-    <div style={fuckingBackgroundStyle} className="flex mx-5 mt-5" >
-      <div style={contentStyle} id="container" className={`w-full p-3 !bg-gradient-to-b !from-transparent ${darkMode ? '!to-gray-700' : '!to-black'}`}>
-        <h3 className={`flex ${darkMode ? 'text-black' : 'text-white'}`}>{title}</h3>
+      <div style={fuckingBackgroundStyle} className="flex mx-5 mt-5">
+        <div style={contentStyle} id="container" className={`w-full p-3 !bg-gradient-to-b !from-transparent ${darkMode ? '!to-gray-700' : '!to-black'}`}>
+          <h3 className={`flex ${darkMode ? 'text-black' : 'text-white'}`}>{title}</h3>
+        </div>
       </div>
-    </div>
     </IonRouterLink>
   );
 };

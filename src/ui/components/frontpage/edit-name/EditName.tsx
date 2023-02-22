@@ -11,8 +11,8 @@ const EditNameExample: React.FC = () => {
   return (
     <>
       <IonButton id="open-modal" expand="block" color={'secondary'}>
-      <IonIcon icon={settingsOutline} size="small" />
-      &nbsp; Change Username
+        <IonIcon icon={settingsOutline} size="small" />
+        &nbsp; Change Username
       </IonButton>
       <IonModal ref={modal} trigger="open-modal">
         <IonHeader>

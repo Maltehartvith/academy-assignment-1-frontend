@@ -107,9 +107,7 @@ const ResetPasswordForm: React.FC<ResetPasswordProps> = ({ togglePasswordButtonT
             class="h-[59px] items-center"
           />
           {password !== '' && togglePasswordButton(false)}
-          {password === '' && (
-            <IonIcon icon={lockClosedOutline} size="medium" className="text-primary-brand" />
-          )}
+          {password === '' && <IonIcon icon={lockClosedOutline} size="medium" className="text-primary-brand" />}
         </IonItem>
 
         <IonText className={`text-red-500 ${passwordValid && 'opacity-0'}`}>{t('authentication.passwordMinLength')}</IonText>
@@ -124,9 +122,7 @@ const ResetPasswordForm: React.FC<ResetPasswordProps> = ({ togglePasswordButtonT
             class="h-[59px] items-center"
           />
           {repeatedPassword !== '' && togglePasswordButton(true)}
-          {repeatedPassword === '' && (
-            <IonIcon icon={lockClosedOutline} size="medium" className="text-primary-brand" />
-          )}
+          {repeatedPassword === '' && <IonIcon icon={lockClosedOutline} size="medium" className="text-primary-brand" />}
         </IonItem>
 
         <IonText className={`text-red-500 ${repPasswordValid && 'opacity-0'}`}>{t('authentication.passwordMustMatch')}</IonText>

@@ -5,14 +5,12 @@ import { Photo } from '@capacitor/camera';
 import { useGoBack } from 'store/user';
 
 const Tab3: React.FC = () => {
-
   const [picture, setPicture] = React.useState<Photo>();
 
   const { goBack, toggleGoBack } = useGoBack();
 
   useEffect(() => {
-    if(goBack)
-    toggleGoBack();
+    if (goBack) toggleGoBack();
   }, []);
 
   return (

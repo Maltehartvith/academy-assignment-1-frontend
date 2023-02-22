@@ -64,7 +64,14 @@ const ForgotPasswordForm: React.FC<ForgotPasswordProps> = ({ iconsDisabled = fal
           <IonText className="text-primary-brand text-xl font-extrabold">{t('authentication.resetPassword')}</IonText>
         </div>
         <IonItem lines="none" className={`border ${emailValid ? 'border-grey-text' : 'border-red-300'} mt-8`}>
-          <IonInput value={email} placeholder={t('authentication.email')} onIonChange={(e) => setEmail(e.detail.value ?? '')} type="email" required class="h-[59px] items-center" />
+          <IonInput
+            value={email}
+            placeholder={t('authentication.email')}
+            onIonChange={(e) => setEmail(e.detail.value ?? '')}
+            type="email"
+            required
+            class="h-[59px] items-center"
+          />
           {!iconsDisabled && <IonIcon icon={at} size="medium" className="text-primary-brand" />}
         </IonItem>
 

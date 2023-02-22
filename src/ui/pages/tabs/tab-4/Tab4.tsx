@@ -123,7 +123,7 @@ const Tab4: React.FC = () => {
           </IonRow>
 
           {!isPlatform('desktop') && (
-            <IonRow className='justify-center'>
+            <IonRow className="justify-center">
               <IonCol size="6">
                 <IonButton color="secondary" expand="block" onClick={() => handleLogOut()}>
                   <IonIcon icon={logOutOutline} size="small" />

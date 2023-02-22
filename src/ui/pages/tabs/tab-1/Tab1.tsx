@@ -1,19 +1,38 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IonContent } from '@ionic/react';
 import { Carousel } from 'antd';
 import GameCard from '../../../components/ui-library/game-card/GameCard';
 import { useGoBack } from 'store/user';
 import ArticleComp from 'ui/components/ui-library/article-component/ArticleComp';
+import { Articles, fetchArticles } from 'apis/supabaseClient';
+
+
 
 const Tab1: React.FC = () => {
+  const [articles, setArticles] = useState<Articles>(null);
   const { goBack, toggleGoBack } = useGoBack();
 
   useEffect(() => {
-    if(goBack)
-    toggleGoBack();
+    let willUnmount = false;
+    if (goBack) toggleGoBack();
+
+    const fetchData = async () => {
+      const getArticle = await fetchArticles();
+      if (!willUnmount) {
+        setArticles(getArticle.data);
+      }
+    };
+    fetchData();
+
+    return () => {
+      willUnmount = true;
+      if (willUnmount) {
+        setArticles(null);
+      }
+    };
   }, []);
   return (
-    <IonContent >
+    <IonContent>
       <div id="herherherher" className=" flex flex-col !rounded-lg">
         <Carousel>
           <div>
@@ -28,7 +47,17 @@ const Tab1: React.FC = () => {
         </Carousel>
       </div>
       <div>
-        <ArticleComp />
+        {
+          articles ? (
+
+            <ArticleComp article={articles}></ArticleComp>
+          ):(
+
+            <div>nothing here </div>
+          )
+
+        }
+
       </div>
     </IonContent>
   );
