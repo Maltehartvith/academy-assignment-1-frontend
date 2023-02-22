@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './tab-4.module.css';
 import {
   IonButton,
@@ -20,9 +20,11 @@ import { arrowBackOutline, arrowForward, chatboxEllipsesOutline, cloudUploadOutl
 import EditNameExample from 'ui/components/frontpage/edit-name/EditName';
 import { useAuthUserStore, useGoBack } from 'store/user';
 import { supabase } from 'apis/supabaseClient';
+import ImageUpload from 'ui/components/frontpage/image-upload/ImageUpload';
 
 const Tab4: React.FC = () => {
   const router = useIonRouter();
+  const [avatarUrl, setAvatarUrl] = useState<string>(''); // Add state for the avatar URL
   const resetAuthUser = useAuthUserStore((state) => state.resetAuthUser);
   const { goBack, toggleGoBack } = useGoBack();
 
@@ -35,6 +37,11 @@ const Tab4: React.FC = () => {
     await supabase.auth.signOut();
     router.push('/login');
   };
+
+  const updateProfilePicture = async (avatarUrl: string) => {
+    // const {data, error} = await supabase.storage.from('profiles')
+  };
+
   return (
     <IonContent>
       <IonButtons slot="start">
@@ -58,7 +65,15 @@ const Tab4: React.FC = () => {
                 <IonCardContent>
                   <IonRow>
                     <IonCol size="6">
-                      <img src="./static/assets/img/meew-bg.jpg" alt="avatar" className="avatar" />
+                      {/* Pass the avatarUrl state and setAvatarUrl function to the Avatar component */}
+                      <ImageUpload
+                        url={avatarUrl}
+                        size={150}
+                        onUpload={(url: string) => {
+                          setAvatarUrl(url);
+                          updateProfilePicture( url );
+                        }}
+                      />
                     </IonCol>
 
                     <IonCol size="6">
@@ -77,9 +92,19 @@ const Tab4: React.FC = () => {
 
                   <IonRow>
                     <IonCol size="6">
-                      <IonButton color="secondary" expand="block">
+                      {/* Use the onUpload function passed to the Avatar component to update the avatarUrl state */}
+                      <IonButton
+                        color="secondary"
+                        expand="block"
+                        onClick={() => {
+                          const fileInput = document.getElementById('fileInput');
+                          if (fileInput) {
+                            fileInput.click();
+                          }
+                        }}
+                      >
                         <IonIcon icon={cloudUploadOutline} size="small" />
-                        &nbsp; Upload Profile Picture
+                        &nbsp; Upload Profile
                       </IonButton>
                     </IonCol>
 
