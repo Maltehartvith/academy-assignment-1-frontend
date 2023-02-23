@@ -14,10 +14,6 @@ type RegisterFormProps = {
 };
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType = 'icon' }) => {
-  const router = useIonRouter();
-  const history = useHistory();
-  const setAuthUser = useAuthUserStore((state) => state.setAuthUser);
-
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [repeatedPassword, setRepeatedPassword] = useState<string>('');
@@ -29,6 +25,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType = 
   const [emailValid, setEmailValid] = useState<boolean>(true);
   const [passwordValid, setPasswordValid] = useState<boolean>(true);
   const [repPasswordValid, setRepPasswordValid] = useState<boolean>(true);
+
+  const router = useIonRouter();
+  const history = useHistory();
+  const setAuthUser = useAuthUserStore((state) => state.setAuthUser);
 
   useEffect(() => {
     const emailRegex =
@@ -51,6 +51,11 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType = 
     }
     await present({ message: t('authentication.creatingUser') });
     const { data, error } = await supabase.auth.signUp({ email, password });
+    // const { email: authEmail, id: authId } =  data.user;  
+    const authId = data?.user?.id;
+    const authEmail = data?.user?.email;
+    console.log(authId, authEmail);
+    if(authId && authEmail) {const { error: profileError } = await supabase.from('users').insert(authId, authEmail);}
     if (data.user) {
       setAuthUser(data.user);
       await dismiss();
